@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { navigationConfig, NavItem } from "@/types/navigation";
 import { DynamicIcon } from "./IconHelper";
 import { ChevronDown, ChevronRight, Sparkles } from "lucide-react";
+import { useTheme } from "@/context/ThemeContext";
 
 interface SidebarProps {
   isCollapsed?: boolean;
@@ -21,6 +22,7 @@ export function Sidebar({
   setIsMobileOpen,
 }: SidebarProps) {
   const pathname = usePathname();
+  const { theme, config } = useTheme();
   const [openDropdowns, setOpenDropdowns] = useState<Record<string, boolean>>({});
 
   // Auto-expand the dropdown matching current path
@@ -50,18 +52,50 @@ export function Sidebar({
     }
   };
 
+  // Active link styling based on theme
+  const getActiveLinkClasses = () => {
+    if (theme === "monochrome") {
+      return "text-black bg-white font-semibold shadow-sm";
+    }
+    if (theme === "tailadmin-dark" || theme === "tailadmin-light") {
+      return "text-white bg-[#3C50E0] font-semibold shadow-md shadow-[#3C50E0]/20";
+    }
+    if (theme === "emerald") {
+      return "text-black bg-[#10B981] font-semibold shadow-md shadow-[#10B981]/20";
+    }
+    if (theme === "violet") {
+      return "text-white bg-[#8B5CF6] font-semibold shadow-md shadow-[#8B5CF6]/20";
+    }
+    return "text-black bg-white font-semibold shadow-sm";
+  };
+
+  const activeClasses = getActiveLinkClasses();
+
   return (
     <aside
-      className={`fixed top-0 left-0 z-50 h-screen flex flex-col bg-[#050507] border-r border-[#27272a] transition-all duration-300 ease-in-out select-none
+      className={`fixed top-0 left-0 z-50 h-screen flex flex-col transition-all duration-300 ease-in-out select-none mono-card rounded-none border-t-0 border-b-0 border-l-0
         ${isCollapsed ? "w-[78px]" : "w-[280px]"}
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
         xl:translate-x-0
       `}
+      style={{
+        backgroundColor: "var(--bg-card, #09090b)",
+        borderColor: "var(--border-color, #27272a)",
+      }}
     >
       {/* Brand Header */}
-      <div className="h-16 flex items-center justify-between px-5 border-b border-[#27272a] shrink-0">
+      <div
+        className="h-16 flex items-center justify-between px-5 border-b shrink-0"
+        style={{ borderColor: "var(--border-color, #27272a)" }}
+      >
         <Link href="/" className="flex items-center gap-3 group" onClick={handleLinkClick}>
-          <div className="w-8 h-8 rounded-lg bg-white text-black flex items-center justify-center font-bold text-base tracking-tighter shadow-md transition-transform group-hover:scale-105">
+          <div
+            className="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-base tracking-tighter shadow-md transition-transform group-hover:scale-105"
+            style={{
+              backgroundColor: theme === "monochrome" ? "#ffffff" : "var(--brand-primary, #3C50E0)",
+              color: theme === "monochrome" ? "#000000" : "#ffffff",
+            }}
+          >
             TA
           </div>
           {!isCollapsed && (
@@ -69,10 +103,10 @@ export function Sidebar({
               <span className="font-bold text-sm text-white tracking-wide flex items-center gap-1.5">
                 TailAdmin
                 <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
-                  Mono
+                  {config.badge.split("·")[0].trim()}
                 </span>
               </span>
-              <span className="text-[11px] text-zinc-500 font-medium">Dashboard System</span>
+              <span className="text-[11px] text-zinc-500 font-medium">Enterprise Suite</span>
             </div>
           )}
         </Link>
@@ -105,7 +139,7 @@ export function Sidebar({
                           className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group cursor-pointer
                             ${
                               isChildActive
-                                ? "text-white bg-zinc-900 border border-zinc-700"
+                                ? "text-white bg-zinc-900/80 border border-zinc-700"
                                 : "text-zinc-400 hover:text-white hover:bg-zinc-900/60"
                             }
                             ${isCollapsed ? "justify-center px-2" : "justify-between"}
@@ -144,7 +178,10 @@ export function Sidebar({
 
                         {/* Accordion Submenu */}
                         {!isCollapsed && isOpen && (
-                          <ul className="mt-1 space-y-0.5 pl-8 border-l border-zinc-800 ml-5 py-1">
+                          <ul
+                            className="mt-1 space-y-0.5 pl-8 border-l ml-5 py-1"
+                            style={{ borderColor: "var(--border-color, #27272a)" }}
+                          >
                             {item.subItems?.map((sub) => {
                               const isSubActive = sub.href === pathname;
                               return (
@@ -155,7 +192,7 @@ export function Sidebar({
                                     className={`flex items-center justify-between px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-150
                                       ${
                                         isSubActive
-                                          ? "text-black bg-white font-semibold shadow-sm"
+                                          ? activeClasses
                                           : "text-zinc-400 hover:text-white hover:bg-zinc-900/80"
                                       }
                                     `}
@@ -165,7 +202,7 @@ export function Sidebar({
                                       <span
                                         className={`text-[9px] uppercase font-bold px-1.5 py-0.5 rounded ${
                                           isSubActive
-                                            ? "bg-black text-white"
+                                            ? "bg-black/40 text-white"
                                             : "bg-zinc-800 text-zinc-300 border border-zinc-700"
                                         }`}
                                       >
@@ -186,7 +223,7 @@ export function Sidebar({
                         className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150 group
                           ${
                             isDirectActive
-                              ? "text-black bg-white font-semibold shadow-sm"
+                              ? activeClasses
                               : "text-zinc-400 hover:text-white hover:bg-zinc-900/60"
                           }
                           ${isCollapsed ? "justify-center px-2" : "justify-between"}
@@ -199,7 +236,7 @@ export function Sidebar({
                               name={item.icon}
                               className={`shrink-0 ${
                                 isDirectActive
-                                  ? "text-black"
+                                  ? theme === "monochrome" ? "text-black" : "text-white"
                                   : "text-zinc-400 group-hover:text-white"
                               }`}
                             />
@@ -211,7 +248,7 @@ export function Sidebar({
                           <span
                             className={`text-[10px] uppercase font-bold px-1.5 py-0.5 rounded ${
                               isDirectActive
-                                ? "bg-black text-white"
+                                ? "bg-black/40 text-white"
                                 : "bg-zinc-800 text-zinc-300 border border-zinc-700"
                             }`}
                           >
@@ -230,17 +267,26 @@ export function Sidebar({
 
       {/* Pro Banner in Footer (When Expanded) */}
       {!isCollapsed && (
-        <div className="p-3 border-t border-[#27272a] shrink-0">
-          <div className="p-3.5 rounded-xl bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 text-center">
+        <div
+          className="p-3 border-t shrink-0"
+          style={{ borderColor: "var(--border-color, #27272a)" }}
+        >
+          <div className="p-3.5 rounded-xl bg-zinc-900/60 border border-zinc-800 text-center">
             <div className="flex items-center justify-center gap-1.5 text-xs font-semibold text-white mb-1">
               <Sparkles className="w-3.5 h-3.5 text-zinc-300" />
-              <span>TailAdmin Monochrome</span>
+              <span>{config.label}</span>
             </div>
             <p className="text-[11px] text-zinc-400 mb-3 leading-relaxed">
-              Production-ready black & white design suite.
+              TailAdmin Next.js 16 Pro Suite
             </p>
-            <div className="w-full py-1.5 text-xs font-semibold text-black bg-white rounded-lg hover:bg-zinc-200 transition-colors shadow-sm">
-              v2.0 Pro Edition
+            <div
+              className="w-full py-1.5 text-xs font-semibold rounded-lg shadow-sm text-center cursor-default"
+              style={{
+                backgroundColor: theme === "monochrome" ? "#ffffff" : "var(--brand-primary, #3C50E0)",
+                color: theme === "monochrome" ? "#000000" : "#ffffff",
+              }}
+            >
+              Active Theme
             </div>
           </div>
         </div>

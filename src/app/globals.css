@@ -1,82 +1,243 @@
 @import "tailwindcss";
 
 @layer base {
-  :root {
-    --background: #000000;
-    --foreground: #ffffff;
-    --card: #09090b;
-    --card-foreground: #fafafa;
-    --popover: #09090b;
-    --popover-foreground: #fafafa;
-    --primary: #ffffff;
-    --primary-foreground: #000000;
-    --secondary: #18181b;
-    --secondary-foreground: #fafafa;
-    --muted: #18181b;
-    --muted-foreground: #a1a1aa;
-    --accent: #27272a;
-    --accent-foreground: #fafafa;
-    --destructive: #71717a;
-    --destructive-foreground: #fafafa;
-    --border: #27272a;
-    --input: #27272a;
-    --ring: #d4d4d8;
-    --radius: 0.5rem;
+  :root,
+  [data-theme="monochrome"] {
+    --bg-body: #000000;
+    --bg-header: rgba(5, 5, 7, 0.9);
+    --bg-card: #09090b;
+    --bg-card-hover: #121215;
+    --bg-card-subtle: #18181b;
+    --bg-input: #18181b;
+    --border-color: #27272a;
+    --border-hover: #52525b;
+    --border-subtle: #1f1f23;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    
+    --brand-primary: #ffffff;
+    --brand-primary-hover: #e4e4e7;
+    --brand-primary-text: #000000;
+    --brand-secondary: #a1a1aa;
+    --brand-accent: #ffffff;
+    
+    --status-success-bg: #18181b;
+    --status-success-text: #ffffff;
+    --status-success-border: #3f3f46;
+    
+    --status-warning-bg: #18181b;
+    --status-warning-text: #e4e4e7;
+    --status-warning-border: #3f3f46;
+    
+    --status-danger-bg: #18181b;
+    --status-danger-text: #a1a1aa;
+    --status-danger-border: #3f3f46;
+
+    --dot-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* TailAdmin Official Original Dark Theme (#3C50E0 Blue + Slate Dark) */
+  [data-theme="tailadmin-dark"] {
+    --bg-body: #1a222c;
+    --bg-header: rgba(36, 48, 63, 0.92);
+    --bg-card: #24303f;
+    --bg-card-hover: #2c3a4b;
+    --bg-card-subtle: #1c2434;
+    --bg-input: #1c2434;
+    --border-color: #2e3a47;
+    --border-hover: #3c50e0;
+    --border-subtle: #24303f;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #8a99ad;
+    --text-muted: #64748b;
+    
+    --brand-primary: #3c50e0;
+    --brand-primary-hover: #2e40c7;
+    --brand-primary-text: #ffffff;
+    --brand-secondary: #80caee;
+    --brand-accent: #3c50e0;
+    
+    --status-success-bg: rgba(16, 185, 129, 0.15);
+    --status-success-text: #10b981;
+    --status-success-border: rgba(16, 185, 129, 0.3);
+    
+    --status-warning-bg: rgba(255, 167, 11, 0.15);
+    --status-warning-text: #ffa70b;
+    --status-warning-border: rgba(255, 167, 11, 0.3);
+    
+    --status-danger-bg: rgba(248, 113, 113, 0.15);
+    --status-danger-text: #f87171;
+    --status-danger-border: rgba(248, 113, 113, 0.3);
+
+    --dot-color: rgba(60, 80, 224, 0.12);
+  }
+
+  /* TailAdmin Clean Light Theme */
+  [data-theme="tailadmin-light"] {
+    --bg-body: #f1f5f9;
+    --bg-header: rgba(255, 255, 255, 0.92);
+    --bg-card: #ffffff;
+    --bg-card-hover: #f8fafc;
+    --bg-card-subtle: #f8fafc;
+    --bg-input: #f1f5f9;
+    --border-color: #e2e8f0;
+    --border-hover: #3c50e0;
+    --border-subtle: #f1f5f9;
+    
+    --text-primary: #1c2434;
+    --text-secondary: #64748b;
+    --text-muted: #94a3b8;
+    
+    --brand-primary: #3c50e0;
+    --brand-primary-hover: #2e40c7;
+    --brand-primary-text: #ffffff;
+    --brand-secondary: #80caee;
+    --brand-accent: #3c50e0;
+    
+    --status-success-bg: #dcfce7;
+    --status-success-text: #15803d;
+    --status-success-border: #bbf7d0;
+    
+    --status-warning-bg: #fef3c7;
+    --status-warning-text: #b45309;
+    --status-warning-border: #fde68a;
+    
+    --status-danger-bg: #fee2e2;
+    --status-danger-text: #b91c1c;
+    --status-danger-border: #fecaca;
+
+    --dot-color: rgba(60, 80, 224, 0.06);
+  }
+
+  /* Cyber Emerald Theme */
+  [data-theme="emerald"] {
+    --bg-body: #050507;
+    --bg-header: rgba(6, 12, 10, 0.92);
+    --bg-card: #09120e;
+    --bg-card-hover: #0e1c16;
+    --bg-card-subtle: #064e3b;
+    --bg-input: #040d09;
+    --border-color: #143527;
+    --border-hover: #10b981;
+    --border-subtle: #0d231a;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #93c5b1;
+    --text-muted: #4e806c;
+    
+    --brand-primary: #10b981;
+    --brand-primary-hover: #059669;
+    --brand-primary-text: #ffffff;
+    --brand-secondary: #34d399;
+    --brand-accent: #10b981;
+    
+    --status-success-bg: rgba(16, 185, 129, 0.2);
+    --status-success-text: #34d399;
+    --status-success-border: #10b981;
+    
+    --status-warning-bg: rgba(245, 158, 11, 0.2);
+    --status-warning-text: #fbbf24;
+    --status-warning-border: #f59e0b;
+    
+    --status-danger-bg: rgba(239, 68, 68, 0.2);
+    --status-danger-text: #f87171;
+    --status-danger-border: #ef4444;
+
+    --dot-color: rgba(16, 185, 129, 0.12);
+  }
+
+  /* Neural Violet Theme */
+  [data-theme="violet"] {
+    --bg-body: #07050e;
+    --bg-header: rgba(13, 9, 23, 0.92);
+    --bg-card: #0f0b1a;
+    --bg-card-hover: #181229;
+    --bg-card-subtle: #201738;
+    --bg-input: #0c0817;
+    --border-color: #271c45;
+    --border-hover: #8b5cf6;
+    --border-subtle: #1c1433;
+    
+    --text-primary: #ffffff;
+    --text-secondary: #b8a9d9;
+    --text-muted: #726299;
+    
+    --brand-primary: #8b5cf6;
+    --brand-primary-hover: #7c3aed;
+    --brand-primary-text: #ffffff;
+    --brand-secondary: #c084fc;
+    --brand-accent: #8b5cf6;
+    
+    --status-success-bg: rgba(16, 185, 129, 0.2);
+    --status-success-text: #34d399;
+    --status-success-border: #10b981;
+    
+    --status-warning-bg: rgba(245, 158, 11, 0.2);
+    --status-warning-text: #fbbf24;
+    --status-warning-border: #f59e0b;
+    
+    --status-danger-bg: rgba(239, 68, 68, 0.2);
+    --status-danger-text: #f87171;
+    --status-danger-border: #ef4444;
+
+    --dot-color: rgba(139, 92, 246, 0.12);
   }
 
   body {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
     font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
-    selection-background-color: #ffffff;
-    selection-color: #000000;
+    transition: background-color 0.25s ease, color 0.25s ease;
   }
 }
 
-/* Glassmorphism & High-contrast monochrome cards */
+/* Card & Surface utilities responding to active theme */
 .mono-card {
-  background-color: #09090b;
-  border: 1px solid #27272a;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
   border-radius: 0.75rem;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .mono-card-hover:hover {
-  border-color: #52525b;
-  background-color: #121215;
+  border-color: var(--border-hover);
+  background-color: var(--bg-card-hover);
 }
 
 .mono-card-glass {
-  background: rgba(9, 9, 11, 0.75);
+  background: var(--bg-card);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-color);
 }
 
-/* Dot grid background for premium texture */
+/* Dynamic dot grid background */
 .bg-mono-dots {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-/* Monochrome scrollbar */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: var(--bg-body);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: var(--border-color);
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #52525b;
+  background: var(--border-hover);
 }
 
 /* Numeric alignment */
@@ -84,22 +245,22 @@
   font-feature-settings: "tnum" on, "zero" on;
 }
 
-/* Custom Tooltip Styling for Recharts in strict monochrome */
+/* Recharts tooltip dynamic styling */
 .recharts-default-tooltip {
-  background-color: #09090b !important;
-  border: 1px solid #3f3f46 !important;
+  background-color: var(--bg-card) !important;
+  border: 1px solid var(--border-color) !important;
   border-radius: 8px !important;
-  color: #ffffff !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.8) !important;
+  color: var(--text-primary) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5) !important;
 }
 
 .recharts-tooltip-item {
-  color: #e4e4e7 !important;
+  color: var(--text-primary) !important;
 }
 
 .recharts-tooltip-label {
-  color: #a1a1aa !important;
-  border-bottom: 1px solid #27272a;
+  color: var(--text-secondary) !important;
+  border-bottom: 1px solid var(--border-color);
   padding-bottom: 4px;
   margin-bottom: 4px;
 }

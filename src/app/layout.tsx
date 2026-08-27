@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Aetheria · Series A Investor Pitch Dashboard",
-  description: "Autonomous Agentic Infrastructure for High-Throughput Enterprise AI — Investor Portal & Pitch Deck",
+  title: "TailAdmin · Next.js 16 Enterprise Dashboard",
+  description: "Comprehensive Enterprise Dashboard Suite with Theme Engine & Generative AI",
 };
 
 export default function RootLayout({
@@ -23,9 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark`}>
-      <body className="bg-[#050507] text-[#f4f4f5] antialiased min-h-screen selection:bg-white selection:text-black">
-        {children}
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} dark`} suppressHydrationWarning>
+      <body className="antialiased min-h-screen">
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

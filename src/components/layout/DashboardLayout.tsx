@@ -27,7 +27,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black text-white flex">
+    <div className="min-h-screen flex" style={{ backgroundColor: "var(--bg-body, #000000)" }}>
       {/* Sidebar Desktop & Tablet */}
       <Sidebar
         isCollapsed={isSidebarCollapsed}

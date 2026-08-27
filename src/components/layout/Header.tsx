@@ -17,6 +17,7 @@ import {
   Clock,
   Sparkles,
 } from "lucide-react";
+import { ThemeSwitcher } from "./ThemeSwitcher";
 
 interface HeaderProps {
   isSidebarCollapsed: boolean;
@@ -100,7 +101,13 @@ export function Header({
   ];
 
   return (
-    <header className="sticky top-0 z-40 h-16 w-full bg-[#050507]/90 backdrop-blur-md border-b border-[#27272a] px-4 lg:px-6 flex items-center justify-between">
+    <header
+      className="sticky top-0 z-40 h-16 w-full backdrop-blur-md border-b px-4 lg:px-6 flex items-center justify-between"
+      style={{
+        backgroundColor: "var(--bg-header, rgba(5, 5, 7, 0.9))",
+        borderColor: "var(--border-color, #27272a)",
+      }}
+    >
       {/* Left side: Toggle button + Search Bar */}
       <div className="flex items-center gap-3 md:gap-4">
         {/* Mobile Toggle */}
@@ -141,11 +148,8 @@ export function Header({
 
       {/* Right side: Actions & User Menu */}
       <div className="flex items-center gap-2 sm:gap-3">
-        {/* Monochrome Badge Indicator */}
-        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] text-zinc-300 font-mono">
-          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-          <span>MONO · DARK</span>
-        </div>
+        {/* Color Palette & Theme Switcher */}
+        <ThemeSwitcher />
 
         {/* Notifications Popover */}
         <div className="relative" ref={notifRef}>
