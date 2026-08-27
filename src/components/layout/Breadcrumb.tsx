@@ -14,19 +14,26 @@ export function Breadcrumb({ pageTitle, category = "Dashboard", categoryHref = "
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
       <div>
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">{pageTitle}</h1>
+        <h1
+          className="text-xl sm:text-2xl font-bold tracking-tight"
+          style={{ color: "var(--text-primary, #ffffff)" }}
+        >
+          {pageTitle}
+        </h1>
       </div>
 
-      <nav className="flex items-center gap-1.5 text-xs text-zinc-400 font-medium">
+      <nav className="flex items-center gap-1.5 text-xs opacity-70 font-medium">
         <Link
           href={categoryHref}
-          className="hover:text-white transition-colors flex items-center gap-1"
+          className="hover:opacity-100 transition-opacity flex items-center gap-1"
         >
           <Home className="w-3.5 h-3.5" />
           <span>{category}</span>
         </Link>
-        <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
-        <span className="text-zinc-200 font-semibold">{pageTitle}</span>
+        <ChevronRight className="w-3.5 h-3.5 opacity-50" />
+        <span className="font-semibold opacity-100" style={{ color: "var(--text-primary, #ffffff)" }}>
+          {pageTitle}
+        </span>
       </nav>
     </div>
   );

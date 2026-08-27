@@ -3,6 +3,7 @@
 @layer base {
   :root,
   [data-theme="monochrome"] {
+    color-scheme: dark;
     --bg-body: #000000;
     --bg-header: rgba(5, 5, 7, 0.9);
     --bg-card: #09090b;
@@ -40,8 +41,9 @@
 
   /* TailAdmin Official Original Dark Theme (#3C50E0 Blue + Slate Dark) */
   [data-theme="tailadmin-dark"] {
+    color-scheme: dark;
     --bg-body: #1a222c;
-    --bg-header: rgba(36, 48, 63, 0.92);
+    --bg-header: rgba(36, 48, 63, 0.95);
     --bg-card: #24303f;
     --bg-card-hover: #2c3a4b;
     --bg-card-subtle: #1c2434;
@@ -75,17 +77,18 @@
     --dot-color: rgba(60, 80, 224, 0.12);
   }
 
-  /* TailAdmin Clean Light Theme */
+  /* TailAdmin Clean Light Theme (#F1F5F9 Slate Background + White Cards + Dark Text) */
   [data-theme="tailadmin-light"] {
+    color-scheme: light;
     --bg-body: #f1f5f9;
-    --bg-header: rgba(255, 255, 255, 0.92);
+    --bg-header: rgba(255, 255, 255, 0.95);
     --bg-card: #ffffff;
     --bg-card-hover: #f8fafc;
-    --bg-card-subtle: #f8fafc;
-    --bg-input: #f1f5f9;
+    --bg-card-subtle: #f1f5f9;
+    --bg-input: #f8fafc;
     --border-color: #e2e8f0;
     --border-hover: #3c50e0;
-    --border-subtle: #f1f5f9;
+    --border-subtle: #edf2f7;
     
     --text-primary: #1c2434;
     --text-secondary: #64748b;
@@ -109,13 +112,14 @@
     --status-danger-text: #b91c1c;
     --status-danger-border: #fecaca;
 
-    --dot-color: rgba(60, 80, 224, 0.06);
+    --dot-color: rgba(60, 80, 224, 0.07);
   }
 
   /* Cyber Emerald Theme */
   [data-theme="emerald"] {
+    color-scheme: dark;
     --bg-body: #050507;
-    --bg-header: rgba(6, 12, 10, 0.92);
+    --bg-header: rgba(6, 12, 10, 0.95);
     --bg-card: #09120e;
     --bg-card-hover: #0e1c16;
     --bg-card-subtle: #064e3b;
@@ -151,8 +155,9 @@
 
   /* Neural Violet Theme */
   [data-theme="violet"] {
+    color-scheme: dark;
     --bg-body: #07050e;
-    --bg-header: rgba(13, 9, 23, 0.92);
+    --bg-header: rgba(13, 9, 23, 0.95);
     --bg-card: #0f0b1a;
     --bg-card-hover: #181229;
     --bg-card-subtle: #201738;
@@ -251,7 +256,7 @@
   border: 1px solid var(--border-color) !important;
   border-radius: 8px !important;
   color: var(--text-primary) !important;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15) !important;
 }
 
 .recharts-tooltip-item {
@@ -263,4 +268,152 @@
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 4px;
   margin-bottom: 4px;
+}
+
+/* ========================================================= */
+/* 🌟 COMPREHENSIVE LIGHT THEME COLOR & CONTRAST RULES 🌟    */
+/* ========================================================= */
+
+[data-theme="tailadmin-light"] {
+  /* Headings & Main Text */
+  h1, h2, h3, h4, h5, h6,
+  .text-white {
+    color: #1c2434 !important;
+  }
+
+  /* Secondary & Muted Text */
+  .text-zinc-200,
+  .text-zinc-300 {
+    color: #334155 !important;
+  }
+
+  .text-zinc-400,
+  .text-zinc-500 {
+    color: #64748b !important;
+  }
+
+  /* Inputs, Textareas & Select Dropdowns */
+  input,
+  textarea,
+  select {
+    background-color: #f8fafc !important;
+    color: #1c2434 !important;
+    border-color: #e2e8f0 !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #94a3b8 !important;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    background-color: #ffffff !important;
+    border-color: #3c50e0 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 1px #3c50e0 !important;
+  }
+
+  /* Dark Boxes, Dropzones, Nested Backgrounds */
+  .bg-zinc-900,
+  .bg-zinc-950,
+  .bg-black {
+    background-color: #f8fafc !important;
+    color: #1c2434 !important;
+  }
+
+  .bg-zinc-900\/40,
+  .bg-zinc-900\/50,
+  .bg-zinc-900\/60,
+  .bg-zinc-900\/80,
+  .bg-zinc-900\/90,
+  .bg-zinc-950\/40,
+  .bg-zinc-950\/60,
+  .bg-zinc-950\/80,
+  .bg-black\/80 {
+    background-color: #f1f5f9 !important;
+    color: #1c2434 !important;
+  }
+
+  /* Borders & Dividers */
+  .border-zinc-600,
+  .border-zinc-700,
+  .border-zinc-700\/80,
+  .border-zinc-800,
+  .border-zinc-800\/60,
+  .border-zinc-800\/80,
+  .border-zinc-900 {
+    border-color: #e2e8f0 !important;
+  }
+
+  .divide-zinc-800,
+  .divide-zinc-800\/40,
+  .divide-zinc-800\/60,
+  .divide-zinc-800\/80,
+  .divide-zinc-900 > * + * {
+    border-color: #e2e8f0 !important;
+  }
+
+  /* Tables */
+  table thead tr {
+    background-color: #f8fafc !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+  }
+
+  table thead th {
+    color: #64748b !important;
+  }
+
+  table tbody tr:hover {
+    background-color: #f1f5f9 !important;
+  }
+
+  /* Primary Action Buttons (Invert White Buttons to TailAdmin Blue in Light Theme) */
+  button.bg-white,
+  a.bg-white,
+  .bg-white.text-black {
+    background-color: #3c50e0 !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+  }
+
+  button.bg-white:hover,
+  a.bg-white:hover {
+    background-color: #2e40c7 !important;
+  }
+
+  /* Badges & Chips */
+  .bg-zinc-800 {
+    background-color: #e2e8f0 !important;
+    color: #334155 !important;
+    border-color: #cbd5e1 !important;
+  }
+
+  /* Hover Link States */
+  .hover\:text-white:hover {
+    color: #3c50e0 !important;
+  }
+
+  .hover\:bg-zinc-800:hover,
+  .hover\:bg-zinc-900:hover,
+  .hover\:bg-zinc-900\/50:hover,
+  .hover\:bg-zinc-900\/60:hover {
+    background-color: #f1f5f9 !important;
+  }
+
+  /* Popovers and Flyouts */
+  .shadow-2xl {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12) !important;
+  }
+
+  /* Keep White Text on Primary Buttons and Badges */
+  .text-white.bg-brand-primary,
+  .bg-blue-600 .text-white,
+  .bg-\[\#3C50E0\] .text-white,
+  button.bg-white .text-black,
+  button.bg-white span,
+  button.bg-white svg {
+    color: #ffffff !important;
+  }
 }
