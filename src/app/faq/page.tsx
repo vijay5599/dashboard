@@ -10,8 +10,8 @@ export default function FAQPage() {
 
   const faqs = [
     {
-      q: "What makes the TailAdmin Monochrome Design System unique?",
-      a: "TailAdmin Monochrome is engineered exclusively in high-contrast black, white, and finely calibrated grayscale spectrums. It eliminates chromatic visual clutter, maximizing information hierarchy and developer ergonomics.",
+      q: "What makes the Krypton Monochrome Design System unique?",
+      a: "Krypton is engineered exclusively in high-contrast black, white, and finely calibrated grayscale spectrums. It eliminates chromatic visual clutter, maximizing information hierarchy and developer ergonomics.",
     },
     {
       q: "How does token streaming and AI assistant generation work?",
@@ -34,7 +34,7 @@ export default function FAQPage() {
       <div className="max-w-3xl mx-auto space-y-6">
         <div className="text-center pb-4">
           <h2 className="text-2xl font-extrabold text-white">Frequently Asked Questions</h2>
-          <p className="text-xs text-zinc-400 mt-1">Everything you need to know about TailAdmin Monochrome</p>
+          <p className="text-xs text-zinc-400 mt-1">Everything you need to know about Krypton</p>
         </div>
 
         <div className="space-y-3">

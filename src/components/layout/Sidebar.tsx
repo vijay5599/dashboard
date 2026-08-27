@@ -96,17 +96,17 @@ export function Sidebar({
               color: theme === "monochrome" ? "#000000" : "#ffffff",
             }}
           >
-            TA
+            KR
           </div>
           {!isCollapsed && (
             <div className="flex flex-col">
               <span className="font-bold text-sm text-white tracking-wide flex items-center gap-1.5">
-                TailAdmin
+                Krypton
                 <span className="text-[10px] uppercase font-mono px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
                   {config.badge.split("·")[0].trim()}
                 </span>
               </span>
-              <span className="text-[11px] text-zinc-500 font-medium">Enterprise Suite</span>
+              <span className="text-[11px] text-zinc-500 font-medium">Autonomous Hub</span>
             </div>
           )}
         </Link>
@@ -277,7 +277,7 @@ export function Sidebar({
               <span>{config.label}</span>
             </div>
             <p className="text-[11px] text-zinc-400 mb-3 leading-relaxed">
-              TailAdmin Next.js 16 Pro Suite
+              Krypton Next.js 16 Pro Suite
             </p>
             <div
               className="w-full py-1.5 text-xs font-semibold rounded-lg shadow-sm text-center cursor-default"

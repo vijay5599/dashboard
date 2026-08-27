@@ -58,10 +58,10 @@ export default function SingleInvoicePage() {
                   TA
                 </div>
                 <span className="text-base font-bold text-white tracking-wider">
-                  TAILADMIN MONO
+                  KRYPTON MONO
                 </span>
               </div>
-              <p className="text-xs text-zinc-400">TailAdmin Technologies Inc.</p>
+              <p className="text-xs text-zinc-400">Krypton Technologies Inc.</p>
               <p className="text-xs text-zinc-500">548 Market St, Suite 2901</p>
               <p className="text-xs text-zinc-500">San Francisco, CA 94104</p>
             </div>

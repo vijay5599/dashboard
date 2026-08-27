@@ -73,7 +73,7 @@ export default function ProfilePage() {
                     <MapPin className="w-3.5 h-3.5" /> San Francisco, CA
                   </span>
                   <span className="flex items-center gap-1">
-                    <Mail className="w-3.5 h-3.5" /> musharof@tailadmin.com
+                    <Mail className="w-3.5 h-3.5" /> musharof@krypton.io
                   </span>
                   <span className="flex items-center gap-1">
                     <Calendar className="w-3.5 h-3.5" /> Joined Jan 2024

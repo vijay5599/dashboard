@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "TailAdmin · Next.js 16 Enterprise Dashboard",
+  title: "Krypton · Autonomous SaaS & Infrastructure Hub",
   description: "Comprehensive Enterprise Dashboard Suite with Theme Engine & Generative AI",
 };
 

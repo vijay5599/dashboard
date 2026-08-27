@@ -6,10 +6,10 @@ import { Breadcrumb } from "@/components/layout/Breadcrumb";
 
 export default function BasicTablesPage() {
   const users = [
-    { name: "Musharof Chowdhury", email: "musharof@tailadmin.com", role: "Super Admin", status: "Active" },
-    { name: "Marcus Vance", email: "marcus@tailadmin.com", role: "Editor", status: "Active" },
-    { name: "Elena Rostova", email: "elena@tailadmin.com", role: "DevOps", status: "Pending" },
-    { name: "Jessica Alba", email: "jessica@tailadmin.com", role: "Viewer", status: "Inactive" },
+    { name: "Musharof Chowdhury", email: "musharof@krypton.io", role: "Super Admin", status: "Active" },
+    { name: "Marcus Vance", email: "marcus@krypton.io", role: "Editor", status: "Active" },
+    { name: "Elena Rostova", email: "elena@krypton.io", role: "DevOps", status: "Pending" },
+    { name: "Jessica Alba", email: "jessica@krypton.io", role: "Viewer", status: "Inactive" },
   ];
 
   return (

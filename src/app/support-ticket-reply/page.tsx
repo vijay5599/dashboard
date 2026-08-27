@@ -17,7 +17,7 @@ export default function SupportTicketReplyPage() {
       role: "Client",
       time: "24 Oct 2026 at 10:15 AM",
       content:
-        "Hello TailAdmin Team,\n\nWe are encountering an issue when attempting to hook up SAML 2.0 Single Sign-On with Okta. The ACS assertion URL returns a 401 unauthorized loop when verifying XML signatures.\n\nCould you please verify our certificate thumbprint on your backend cluster?",
+        "Hello Krypton Team,\n\nWe are encountering an issue when attempting to hook up SAML 2.0 Single Sign-On with Okta. The ACS assertion URL returns a 401 unauthorized loop when verifying XML signatures.\n\nCould you please verify our certificate thumbprint on your backend cluster?",
     },
     {
       id: 2,

@@ -57,7 +57,7 @@ export default function FormLayoutPage() {
               <input
                 type="email"
                 required
-                defaultValue="musharof@tailadmin.com"
+                defaultValue="musharof@krypton.io"
                 className="w-full bg-zinc-900 border border-zinc-700 text-white rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-white"
               />
             </div>

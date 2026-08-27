@@ -26,7 +26,7 @@ export default function VideosPage() {
             <div className="w-16 h-16 rounded-full bg-white text-black flex items-center justify-center cursor-pointer hover:scale-110 transition-transform shadow-2xl">
               <Play className="w-7 h-7 ml-1 fill-black" />
             </div>
-            <span className="text-xs text-zinc-400 mt-3 font-mono">TailAdmin_Production_Demo_4K.mp4</span>
+            <span className="text-xs text-zinc-400 mt-3 font-mono">Krypton_Production_Demo_4K.mp4</span>
           </div>
         </div>
       </div>

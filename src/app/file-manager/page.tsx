@@ -26,7 +26,7 @@ export default function FileManagerPage() {
   ];
 
   const recentFiles = [
-    { name: "tailadmin-monochrome-tokens.json", type: "JSON", size: "14.2 KB", modified: "10m ago" },
+    { name: "krypton-tokens.json", type: "JSON", size: "14.2 KB", modified: "10m ago" },
     { name: "series-a-investor-deck-v4.pdf", type: "PDF", size: "8.4 MB", modified: "2h ago" },
     { name: "product-keynote-4k.mp4", type: "Video", size: "184.0 MB", modified: "Yesterday" },
     { name: "system-architecture-spec.md", type: "Markdown", size: "42.8 KB", modified: "2 days ago" },

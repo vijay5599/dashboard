@@ -22,10 +22,10 @@ export default function SignUpPage() {
         {/* Brand Header */}
         <div className="text-center space-y-2">
           <div className="w-12 h-12 rounded-2xl bg-white text-black font-extrabold text-xl flex items-center justify-center mx-auto mb-3 shadow-xl">
-            TA
+            KR
           </div>
           <h1 className="text-2xl font-extrabold text-white">Create an Account</h1>
-          <p className="text-xs text-zinc-400">Join the TailAdmin Monochrome developer ecosystem</p>
+          <p className="text-xs text-zinc-400">Join the Krypton developer ecosystem</p>
         </div>
 
         {/* Sign Up Form */}

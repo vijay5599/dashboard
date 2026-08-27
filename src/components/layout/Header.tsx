@@ -404,7 +404,7 @@ export function Header({
                 style={{ borderColor: "var(--border-color, #27272a)" }}
               >
                 <p className="text-xs font-semibold">Musharof Chowdhury</p>
-                <p className="text-[11px] opacity-70 truncate">musharof@tailadmin.com</p>
+                <p className="text-[11px] opacity-70 truncate">musharof@krypton.io</p>
               </div>
 
               <div className="space-y-0.5">

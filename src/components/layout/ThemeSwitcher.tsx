@@ -68,7 +68,7 @@ export function ThemeSwitcher() {
                 Theme & Color Palette
               </h4>
             </div>
-            <span className="text-[10px] font-mono opacity-60">TailAdmin v4</span>
+            <span className="text-[10px] font-mono opacity-60">Krypton v2.0</span>
           </div>
 
           <div className="space-y-1.5">

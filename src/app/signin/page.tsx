@@ -7,7 +7,7 @@ import { Lock, Mail, ArrowRight, Eye, EyeOff, ShieldCheck } from "lucide-react";
 
 export default function SignInPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("musharof@tailadmin.com");
+  const [email, setEmail] = useState("musharof@krypton.io");
   const [password, setPassword] = useState("••••••••••••");
   const [showPass, setShowPass] = useState(false);
 
@@ -22,10 +22,10 @@ export default function SignInPage() {
         {/* Brand Header */}
         <div className="text-center space-y-2">
           <div className="w-12 h-12 rounded-2xl bg-white text-black font-extrabold text-xl flex items-center justify-center mx-auto mb-3 shadow-xl">
-            TA
+            KR
           </div>
           <h1 className="text-2xl font-extrabold text-white">Welcome Back</h1>
-          <p className="text-xs text-zinc-400">Sign in to your TailAdmin Monochrome workspace</p>
+          <p className="text-xs text-zinc-400">Sign in to your Krypton workspace</p>
         </div>
 
         {/* Sign In Form */}

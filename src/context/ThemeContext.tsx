@@ -29,9 +29,9 @@ export interface ThemeColors {
 export const THEMES_CONFIG: Record<ThemeMode, ThemeColors> = {
   monochrome: {
     name: "monochrome",
-    label: "Monochrome Obsidian",
+    label: "Krypton Obsidian (Mono)",
     description: "Pure black & white, high-contrast dark aesthetic",
-    badge: "MONO · DARK",
+    badge: "KRYPTON · MONO",
     preview: ["#000000", "#ffffff", "#71717a", "#27272a"],
     isDark: true,
     chartColors: {
@@ -45,9 +45,9 @@ export const THEMES_CONFIG: Record<ThemeMode, ThemeColors> = {
   },
   "tailadmin-dark": {
     name: "tailadmin-dark",
-    label: "TailAdmin Original (Dark)",
-    description: "Official TailAdmin theme with #3C50E0 Royal Blue and vibrant accents",
-    badge: "TAILADMIN · BLUE",
+    label: "Krypton Classic (Blue Dark)",
+    description: "Iconic #3C50E0 Royal Blue and rich slate dark accents",
+    badge: "KRYPTON · BLUE",
     preview: ["#1A222C", "#3C50E0", "#80CAEE", "#10B981"],
     isDark: true,
     chartColors: {
@@ -61,9 +61,9 @@ export const THEMES_CONFIG: Record<ThemeMode, ThemeColors> = {
   },
   "tailadmin-light": {
     name: "tailadmin-light",
-    label: "TailAdmin Clean (Light)",
-    description: "Bright Slate layout with TailAdmin Brand Blue accents",
-    badge: "TAILADMIN · LIGHT",
+    label: "Krypton Clean (Light)",
+    description: "Bright Slate layout with Krypton Brand Blue accents",
+    badge: "KRYPTON · LIGHT",
     preview: ["#F1F5F9", "#3C50E0", "#10B981", "#FFFFFF"],
     isDark: false,
     chartColors: {
@@ -77,9 +77,9 @@ export const THEMES_CONFIG: Record<ThemeMode, ThemeColors> = {
   },
   emerald: {
     name: "emerald",
-    label: "Cyber Emerald",
+    label: "Krypton Cyber (Emerald)",
     description: "Deep obsidian with emerald neon highlights",
-    badge: "EMERALD · DARK",
+    badge: "KRYPTON · EMERALD",
     preview: ["#050507", "#10B981", "#34D399", "#064E3B"],
     isDark: true,
     chartColors: {
@@ -93,9 +93,9 @@ export const THEMES_CONFIG: Record<ThemeMode, ThemeColors> = {
   },
   violet: {
     name: "violet",
-    label: "AI Neural Violet",
+    label: "Krypton Neural (Violet)",
     description: "Deep dark indigo with rich violet gradients",
-    badge: "VIOLET · DARK",
+    badge: "KRYPTON · VIOLET",
     preview: ["#090514", "#8B5CF6", "#C084FC", "#4C1D95"],
     isDark: true,
     chartColors: {
@@ -113,7 +113,7 @@ interface ThemeContextType {
   theme: ThemeMode;
   setTheme: (theme: ThemeMode) => void;
   config: ThemeColors;
-  toggleTailAdminTheme: () => void;
+  toggleKryptonTheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -124,7 +124,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     try {
-      const savedTheme = localStorage.getItem("tailadmin-theme") as ThemeMode;
+      const savedTheme = localStorage.getItem("krypton-theme") as ThemeMode;
       if (savedTheme && THEMES_CONFIG[savedTheme]) {
         setThemeState(savedTheme);
         document.documentElement.setAttribute("data-theme", savedTheme);
@@ -140,12 +140,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const setTheme = (newTheme: ThemeMode) => {
     setThemeState(newTheme);
     try {
-      localStorage.setItem("tailadmin-theme", newTheme);
+      localStorage.setItem("krypton-theme", newTheme);
       document.documentElement.setAttribute("data-theme", newTheme);
     } catch (e) {}
   };
 
-  const toggleTailAdminTheme = () => {
+  const toggleKryptonTheme = () => {
     if (theme === "monochrome") {
       setTheme("tailadmin-dark");
     } else if (theme === "tailadmin-dark") {
@@ -161,7 +161,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         theme,
         setTheme,
         config: THEMES_CONFIG[theme] || THEMES_CONFIG.monochrome,
-        toggleTailAdminTheme,
+        toggleKryptonTheme,
       }}
     >
       {children}
