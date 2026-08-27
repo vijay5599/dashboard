@@ -1,224 +1,196 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { 
-  Search, 
-  BarChart3, 
-  TrendingUp, 
-  PieChart, 
-  FileText, 
-  Presentation, 
-  Cpu, 
-  Globe, 
-  ArrowRight,
-  Sparkles,
-  X,
-  FileSpreadsheet,
-  ShieldCheck
-} from "lucide-react";
-import { NavTab } from "@/types/pitch";
-import { DATA_ROOM_DOCS, PITCH_SLIDES } from "@/data/pitchData";
+import React, { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
+import { Search, X, ArrowRight, CornerDownLeft, Sparkles, LayoutDashboard, Layers, Shield } from "lucide-react";
+import { navigationConfig } from "@/types/navigation";
 
 interface CommandPaletteProps {
   isOpen: boolean;
   onClose: () => void;
-  onSelectTab: (tab: NavTab) => void;
-  onSelectSlide?: (slideId: number) => void;
-  onOpenCommitModal: () => void;
 }
 
-export const CommandPalette: React.FC<CommandPaletteProps> = ({
-  isOpen,
-  onClose,
-  onSelectTab,
-  onSelectSlide,
-  onOpenCommitModal,
-}) => {
+export function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Flatten all navigable items
+  const allRoutes = React.useMemo(() => {
+    const list: { name: string; href: string; section: string; badge?: string }[] = [];
+    navigationConfig.forEach((sec) => {
+      sec.items.forEach((item) => {
+        if (item.href) {
+          list.push({
+            name: item.name,
+            href: item.href,
+            section: sec.title,
+            badge: item.badge,
+          });
+        }
+        if (item.subItems) {
+          item.subItems.forEach((sub) => {
+            list.push({
+              name: `${item.name} > ${sub.name}`,
+              href: sub.href,
+              section: sec.title,
+              badge: sub.badge,
+            });
+          });
+        }
+      });
+    });
+    return list;
+  }, []);
+
+  const filteredRoutes = React.useMemo(() => {
+    if (!query.trim()) return allRoutes.slice(0, 12);
+    const q = query.toLowerCase();
+    return allRoutes.filter(
+      (r) => r.name.toLowerCase().includes(q) || r.section.toLowerCase().includes(q)
+    );
+  }, [allRoutes, query]);
+
+  useEffect(() => {
+    if (isOpen) {
+      setTimeout(() => inputRef.current?.focus(), 50);
+      setSelectedIndex(0);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      if (!isOpen) return;
+
+      if (e.key === "ArrowDown") {
         e.preventDefault();
-        if (isOpen) {
-          onClose();
-        } else {
-          // Open
-          // will be handled by parent state
-        }
-      }
-      if (e.key === "Escape" && isOpen) {
+        setSelectedIndex((prev) => (prev + 1) % filteredRoutes.length);
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev - 1 + filteredRoutes.length) % filteredRoutes.length);
+      } else if (e.key === "Enter" && filteredRoutes[selectedIndex]) {
+        e.preventDefault();
+        router.push(filteredRoutes[selectedIndex].href);
+        onClose();
+      } else if (e.key === "Escape") {
+        e.preventDefault();
         onClose();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, filteredRoutes, selectedIndex, router, onClose]);
 
   if (!isOpen) return null;
 
-  const actions = [
-    { id: "tab-overview", title: "Go to Executive Summary", category: "Navigation", icon: BarChart3, action: () => { onSelectTab("overview"); onClose(); } },
-    { id: "tab-fin", title: "Financials, Runway & Scenario Simulator", category: "Navigation", icon: TrendingUp, action: () => { onSelectTab("financials"); onClose(); } },
-    { id: "tab-market", title: "Market Size & Enterprise Traction (48 Logos)", category: "Navigation", icon: Globe, action: () => { onSelectTab("market"); onClose(); } },
-    { id: "tab-product", title: "Product Architecture & Moat Benchmarks", category: "Navigation", icon: Cpu, action: () => { onSelectTab("product"); onClose(); } },
-    { id: "tab-cap", title: "Cap Table, Valuation & Round Allocation", category: "Navigation", icon: PieChart, action: () => { onSelectTab("captable"); onClose(); } },
-    { id: "tab-slides", title: "Interactive Pitch Deck (Presentation Slides)", category: "Navigation", icon: Presentation, action: () => { onSelectTab("slides"); onClose(); } },
-    { id: "tab-data", title: "Investor Data Room & Due Diligence Docs", category: "Navigation", icon: FileText, action: () => { onSelectTab("dataroom"); onClose(); } },
-    { id: "act-commit", title: "Simulate Investment Ticket & Check Allocation", category: "Actions", icon: Sparkles, action: () => { onClose(); onOpenCommitModal(); } },
-  ];
-
-  const filteredActions = actions.filter((item) =>
-    item.title.toLowerCase().includes(query.toLowerCase()) ||
-    item.category.toLowerCase().includes(query.toLowerCase())
-  );
-
-  const filteredDocs = DATA_ROOM_DOCS.filter((doc) =>
-    doc.title.toLowerCase().includes(query.toLowerCase()) ||
-    doc.category.toLowerCase().includes(query.toLowerCase())
-  );
-
-  const filteredSlides = PITCH_SLIDES.filter((slide) =>
-    slide.title.toLowerCase().includes(query.toLowerCase()) ||
-    slide.subtitle.toLowerCase().includes(query.toLowerCase())
-  );
-
   return (
-    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="w-full max-w-2xl bg-[#0d0d11] border border-white/20 rounded-2xl shadow-2xl overflow-hidden rim-light">
-        {/* Search Input */}
-        <div className="flex items-center px-4 py-3.5 border-b border-white/[0.08] gap-3">
-          <Search size={18} className="text-zinc-400" />
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4">
+      <div className="fixed inset-0 bg-black/80 backdrop-blur-sm" onClick={onClose} />
+
+      <div className="relative w-full max-w-xl bg-[#09090b] border border-zinc-700 rounded-2xl shadow-2xl overflow-hidden z-10 animate-in fade-in-0 zoom-in-95">
+        {/* Search Header */}
+        <div className="flex items-center px-4 py-3.5 border-b border-zinc-800 gap-3">
+          <Search className="w-5 h-5 text-zinc-400 shrink-0" />
           <input
-            autoFocus
+            ref={inputRef}
             type="text"
-            placeholder="Search metrics, pitch slides, documents, cap table..."
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 bg-transparent text-sm text-white placeholder:text-zinc-500 focus:outline-none font-sans"
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setSelectedIndex(0);
+            }}
+            placeholder="Type a page name, section, or action..."
+            className="w-full bg-transparent text-sm text-white placeholder-zinc-500 focus:outline-none"
           />
-          <button 
+          <button
             onClick={onClose}
-            className="p-1 rounded-md text-zinc-500 hover:text-white hover:bg-white/10"
+            className="p-1 text-zinc-400 hover:text-white rounded-md hover:bg-zinc-800 transition-colors"
           >
-            <X size={16} />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Results list */}
-        <div className="max-h-[60vh] overflow-y-auto p-3 space-y-4">
-          {/* Navigation Items */}
-          {filteredActions.length > 0 && (
-            <div>
-              <div className="px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-zinc-500 font-semibold">
-                Quick Navigation & Actions
-              </div>
-              <div className="space-y-1 mt-1">
-                {filteredActions.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={item.action}
-                      className="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs text-zinc-300 hover:text-white hover:bg-white/[0.08] transition-all group text-left"
+        {/* Results List */}
+        <div className="max-h-96 overflow-y-auto p-2 divide-y divide-zinc-900">
+          {filteredRoutes.length === 0 ? (
+            <div className="py-8 text-center text-zinc-500 text-xs">
+              No matching pages found for &quot;{query}&quot;
+            </div>
+          ) : (
+            filteredRoutes.map((route, idx) => {
+              const isSelected = idx === selectedIndex;
+              return (
+                <div
+                  key={route.href + idx}
+                  onClick={() => {
+                    router.push(route.href);
+                    onClose();
+                  }}
+                  onMouseEnter={() => setSelectedIndex(idx)}
+                  className={`flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer transition-all ${
+                    isSelected
+                      ? "bg-white text-black font-semibold"
+                      : "text-zinc-300 hover:bg-zinc-900"
+                  }`}
+                >
+                  <div className="flex items-center gap-3 min-w-0">
+                    <span
+                      className={`text-[10px] font-mono uppercase px-1.5 py-0.5 rounded ${
+                        isSelected
+                          ? "bg-zinc-200 text-black border border-zinc-300"
+                          : "bg-zinc-800 text-zinc-400 border border-zinc-700"
+                      }`}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="p-1.5 rounded-lg bg-white/[0.05] border border-white/10 group-hover:border-white/30">
-                          <Icon size={15} className="text-zinc-300 group-hover:text-white" />
-                        </div>
-                        <span className="font-medium text-sm text-zinc-200 group-hover:text-white">
-                          {item.title}
-                        </span>
-                      </div>
-                      <ArrowRight size={14} className="text-zinc-600 group-hover:text-zinc-300 group-hover:translate-x-0.5 transition-transform" />
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          )}
-
-          {/* Slides */}
-          {filteredSlides.length > 0 && (
-            <div>
-              <div className="px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-zinc-500 font-semibold">
-                Pitch Deck Slides
-              </div>
-              <div className="space-y-1 mt-1">
-                {filteredSlides.map((slide) => (
-                  <button
-                    key={slide.id}
-                    onClick={() => {
-                      onSelectTab("slides");
-                      if (onSelectSlide) onSelectSlide(slide.id);
-                      onClose();
-                    }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs text-zinc-300 hover:text-white hover:bg-white/[0.08] transition-all group text-left"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <span className="font-mono text-[10px] px-1.5 py-0.5 bg-white/10 text-zinc-300 rounded">
-                        Slide {slide.id}
-                      </span>
-                      <span className="font-medium text-zinc-200 group-hover:text-white truncate">
-                        {slide.title}
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-zinc-500 font-mono">
-                      {slide.keyMetric.value}
+                      {route.section}
                     </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+                    <span className="text-xs truncate">{route.name}</span>
+                  </div>
 
-          {/* Data Room Files */}
-          {filteredDocs.length > 0 && (
-            <div>
-              <div className="px-2 py-1 text-[10px] font-mono uppercase tracking-wider text-zinc-500 font-semibold">
-                Data Room Documents
-              </div>
-              <div className="space-y-1 mt-1">
-                {filteredDocs.map((doc) => (
-                  <button
-                    key={doc.id}
-                    onClick={() => {
-                      onSelectTab("dataroom");
-                      onClose();
-                    }}
-                    className="w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs text-zinc-300 hover:text-white hover:bg-white/[0.08] transition-all group text-left"
-                  >
-                    <div className="flex items-center gap-2.5">
-                      <span className="font-mono text-[10px] px-1.5 py-0.5 bg-zinc-800 text-zinc-300 rounded border border-white/10">
-                        {doc.format}
+                  <div className="flex items-center gap-2">
+                    {route.badge && (
+                      <span
+                        className={`text-[9px] uppercase font-bold px-1.5 py-0.5 rounded ${
+                          isSelected ? "bg-black text-white" : "bg-zinc-800 text-zinc-300"
+                        }`}
+                      >
+                        {route.badge}
                       </span>
-                      <span className="font-medium text-zinc-200 group-hover:text-white truncate">
-                        {doc.title}
-                      </span>
-                    </div>
-                    <span className="text-[10px] text-zinc-500 font-mono">
-                      {doc.fileSize}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {filteredActions.length === 0 && filteredSlides.length === 0 && filteredDocs.length === 0 && (
-            <div className="py-10 text-center text-zinc-500 text-xs">
-              No matching pitch metrics or documents found for &quot;{query}&quot;
-            </div>
+                    )}
+                    {isSelected && <CornerDownLeft className="w-3.5 h-3.5" />}
+                  </div>
+                </div>
+              );
+            })
           )}
         </div>
 
         {/* Footer shortcuts */}
-        <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-950 border-t border-white/[0.08] text-[11px] text-zinc-500 font-mono">
-          <span>Use <strong>↑↓</strong> to navigate</span>
-          <span><strong>ESC</strong> to close</span>
+        <div className="px-4 py-2 bg-zinc-950 border-t border-zinc-800 flex items-center justify-between text-[11px] text-zinc-500">
+          <div className="flex items-center gap-3">
+            <span>
+              <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded font-mono">
+                ↑↓
+              </kbd>{" "}
+              Navigate
+            </span>
+            <span>
+              <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded font-mono">
+                ↵
+              </kbd>{" "}
+              Select
+            </span>
+            <span>
+              <kbd className="px-1 py-0.5 bg-zinc-900 border border-zinc-800 rounded font-mono">
+                ESC
+              </kbd>{" "}
+              Close
+            </span>
+          </div>
+          <span className="font-mono text-[10px] text-zinc-400">TailAdmin Monochrome</span>
         </div>
       </div>
     </div>
   );
-};
+}

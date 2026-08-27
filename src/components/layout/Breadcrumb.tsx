@@ -1,0 +1,33 @@
+"use client";
+
+import React from "react";
+import Link from "next/link";
+import { ChevronRight, Home } from "lucide-react";
+
+interface BreadcrumbProps {
+  pageTitle: string;
+  category?: string;
+  categoryHref?: string;
+}
+
+export function Breadcrumb({ pageTitle, category = "Dashboard", categoryHref = "/" }: BreadcrumbProps) {
+  return (
+    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+      <div>
+        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">{pageTitle}</h1>
+      </div>
+
+      <nav className="flex items-center gap-1.5 text-xs text-zinc-400 font-medium">
+        <Link
+          href={categoryHref}
+          className="hover:text-white transition-colors flex items-center gap-1"
+        >
+          <Home className="w-3.5 h-3.5" />
+          <span>{category}</span>
+        </Link>
+        <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
+        <span className="text-zinc-200 font-semibold">{pageTitle}</span>
+      </nav>
+    </div>
+  );
+}
